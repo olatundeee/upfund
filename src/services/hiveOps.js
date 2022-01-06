@@ -2,7 +2,7 @@ const { auth } = require("@hiveio/hive-js");
 const hive = require("@hiveio/hive-js")
 var jwt = require('jsonwebtoken');
 
-module.exports = {
+const ops = {
     getTrending: async function() {
         var query = { limit : 3, tag : "hive" };
         hive.api.getDiscussionsByTrending30(query, function(err, data) {
@@ -102,3 +102,5 @@ module.exports = {
 
     }
 }
+
+export default ops;
