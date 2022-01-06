@@ -63,7 +63,7 @@ function Posts() {
                 <div className="col-lg-6 col-md-6 col-sm-12 post" key={post.permlink} data-author={post.author}>
                     <div className="card bg-dark text-white">
                         <div className="card-header bg-primary">
-                            <h5 className="card-title post-title-wrap text-start"><a href={`/post?permlink=${post.permlink}&author=${post.author}`} className="text-white" style={{cursor: 'pointer !important', textDecoration: 'none'}}>{post.title}...</a></h5>
+                            <h5 className="card-title post-title-wrap text-start"><a href={`/post?permlink=${post.permlink}&author=${post.author}`} className="text-white" style={{cursor: 'pointer !important', textDecoration: 'none'}}>{`${post.title}.....`}</a></h5>
                         </div>
                         <img src={post.cover} className="card-img" height="300px" />
                         <div className="card-img-overlay post-title-section d-flex flex-column justify-content-end">

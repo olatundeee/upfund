@@ -1,7 +1,5 @@
 import React from "react";
-import * as Icon from 'react-bootstrap-icons';
 import ops from "../services/hiveOps"
-import {keychain, isKeychainInstalled, hasKeychainBeenUsed} from '@hiveio/keychain'
 
 
 const hive = require("@hiveio/hive-js")

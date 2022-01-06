@@ -7,8 +7,6 @@ import { Remarkable } from 'remarkable';
 
 
 const hive = require("@hiveio/hive-js")
-const showdown  = require('showdown')
-const converter = new showdown.Converter()
 
 // If you're in the browser, the Remarkable class is already available in the window
 var md = new Remarkable({

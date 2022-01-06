@@ -1,4 +1,3 @@
-const { auth } = require("@hiveio/hive-js");
 const hive = require("@hiveio/hive-js")
 var jwt = require('jsonwebtoken');
 
