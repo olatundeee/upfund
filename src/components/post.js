@@ -1,27 +1,19 @@
 import React from "react";
 import * as Icon from 'react-bootstrap-icons';
-import { Remarkable } from 'remarkable';
+import MarkdownIt from 'markdown-it';
+import TurndownService from 'turndown';
+//import { Remarkable } from 'remarkable';
 //import ReactMarkdown from 'react-markdown'
 //import remarkGfm from 'remark-gfm'
 //import Markdown from 'markdown-to-jsx';
 
 
 const hive = require("@hiveio/hive-js")
+let md = new MarkdownIt()
+const turndownService = new TurndownService()
 
 // If you're in the browser, the Remarkable class is already available in the window
-var md = new Remarkable({
-    html: false, // Enable HTML tags in source
-    xhtmlOut: true, // Use '/' to close single tags (<br />)
-    breaks: true, // Convert '\n' in paragraphs into <br>
-    linkify: true, // Autoconvert URL-like text to links
-
-    // Enable some language-neutral replacement + quotes beautification
-    typographer: true,
-
-    // Double + single quotes replacement pairs, when typographer enabled,
-    // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
-    quotes: '“”‘’'
-});
+//var md = new Remarkable();
 
 function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
@@ -54,10 +46,18 @@ function Post() {
         body: null
     }
     async function getPost() {
-        let post = await hive.api.getContentAsync(author, permlink); 
+        let post = await hive.api.getContentAsync(author, permlink);
+        let postBody4 = ''
             if(post) {
                 postObj.title = post.title
-                postObj.body = post.body;
+                postObj.author = author
+
+                let postBody =  post.body
+                const markdown = turndownService.turndown(postBody)
+                postBody = postBody.replace(/<center>/g, '').replace(/<\/center>/g, '').replace(/<div class="text-justify">/g, '').replace(/<\/div>/g, '').replace(/<div class="pull-left">/g, '').replace(/<div class="pull-right">/g, '').replace(/<hr>/g, '')
+
+                
+                postObj.body = md.render(postBody)
                 let json = post.json_metadata
                 if (json) {
                     json = JSON.parse(json)
@@ -78,6 +78,10 @@ function Post() {
     return {__html: params};
   }
 
+  function sanitizeHtmlFunc() {
+    
+  }
+
   return (
       
 
@@ -89,15 +93,17 @@ function Post() {
                     <img src={post.cover} height="300px" width="100%"/>
                 </div>
                 {<div className="card post-card">
-                    <div class="card-header">
+                    <div className="card-header">
                         <h5 className="card-title">{post.title}</h5>
                     </div>
                     <div className="card-body post-card-body">
-                        <div className="card-text text-start" dangerouslySetInnerHTML={createMarkup(md.render(post.body))}/>
+                        <div className="card-text text-start" id="post-body-text" dangerouslySetInnerHTML={createMarkup(post.body)} />
                     </div>
-                    <div className="card-footer post-footer-area text-white row">
-                        <span className="vote-post text-white col">< Icon.HandThumbsUp /></span>
-                        <span className="view-post text-white col">< Icon.Share /></span>
+                    
+                    <div className="card-footer post-footer-area bg-primary row">
+                        <div className="vote-post text-white col">< Icon.HandThumbsUp /></div>
+                        <div className="view-post text-white col"><a href={`/post?permlink=${post.permlink}&author=${post.author}`} style={{cursor: 'pointer !important'}} className="text-white">< Icon.EyeFill /></a></div>
+                        <div className="post-author text-white col badge bg-primary text-white"><b>By: </b>@<a href={`/u/${post.author}`} className="text-white">{post.author}</a></div>
                     </div>
                 </div>}
             </div>

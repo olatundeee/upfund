@@ -71,3 +71,25 @@ code {
 img {
   width: 100% !important;
 }
+
+.text-cont {
+  padding-top: 2%;
+}
+
+.encloser {
+  border: 1px solid black;
+  border-radius: 25px;
+  margin: 3% 10%;
+  padding: 3% 5%;
+}
+
+.encloseEditor {
+  border: 1px solid black;
+  border-radius: 25px;
+  /*margin: 3% 10%;*/
+  padding: 3% 5%;
+}
+
+.editorAlignment {
+  text-align: left;
+}

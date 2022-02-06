@@ -1,6 +1,7 @@
 import React from "react";
 import ops from "../services/hiveOps"
 
+import {keychain, isKeychainInstalled, hasKeychainBeenUsed} from '@hiveio/keychain'
 
 const hive = require("@hiveio/hive-js")
 
@@ -18,41 +19,48 @@ async function callback(data) {
         window.location.replace('/')
     }
 }
-/*async function keychainLoginOp(username) {
+async function keychainLoginOp(username) {
     const accountData = await hive.api.getAccountsAsync([username])
     let auth = accountData[0].posting.account_auths.filter(el => el[0] === 'speak.bounties');
     // All good
     console.log(auth)
 
-    const {success, msg, cancel, notInstalled, notActive} = await keychain(window, 'requestTransfer', 'test', 'therealwolf', 5,  'test memo', 'HIVE')
-    if(success) {
+    const {success, msg, cancel, notInstalled, notActive} = await keychain(window, 'requestTransfer', 'test', username, 5,  'test memo', 'HIVE')
+    if(isKeychainInstalled) {
         // do your thing
         if (auth.length === 0) {
             const response = await keychain(window, 'requestAddAccountAuthority', username, "speak.bounties", "posting", 1);
 
             if (response.success === true){
                 const fetchMemo = await ops.fetchMemo(username)
+                console.log(fetchMemo)
                 keychainCallback(fetchMemo)
             }
             else {
                 console.log({error : "Keychain error"});
             }
         }
+        else {
+            const fetchMemo = await ops.fetchMemo(username)
+            console.log(fetchMemo)
+            keychainCallback(fetchMemo)
+        }
     }
     // User didn't cancel, so something must have happened
     else if(!cancel) {
         if(notActive) {
-        alert('Please allow Keychain to access this website')
+            alert('Please allow Keychain to access this website')
         } else if(notInstalled) {
-        alert('Please install Keychain')
+            alert('Please install Keychain')
         } else {
-        // error happened - check msg
+            //console.log(error.message)
+            alert('You need a doctor')
         }
     }
 }
 async function keychainCallback(memo) {
-    const theUsername = memo.data.username
-    const encoded = memo.data.encoded
+    const theUsername = memo.username
+    const encoded = memo.encoded
 
     let successMessage = ''
 
@@ -75,7 +83,7 @@ async function callback2(data) {
 
         window.location.replace('/')
     }
-}*/
+}
 function Login() {
 
   React.useEffect(() => { }, []);
@@ -97,7 +105,7 @@ function Login() {
                         <div className="input-group mb-3" id="posting-key-sec" style={{display: 'flex'}}>
                             <input type="password" className="form-control" placeholder="Posting Key" aria-label="Posting Key" aria-describedby="basic-addon1" id="posting-key" />
                         </div>
-                        {/*<div className="form-check mb-3 text-start">
+                        <div className="form-check mb-3 text-start">
                             <label className="form-check-label" htmlFor="useKeychain">
                                 Use Hive Keychain
                             </label>
@@ -113,7 +121,7 @@ function Login() {
                                 }
                                 
                             }} />
-                        </div>*/}
+                        </div>
                         <div className="input-group mb-3" id="posting-login">
                             <button type="button" className="btn btn-primary" id="login" onClick={() => {
                                 const username = document.getElementById('username').value
@@ -121,12 +129,12 @@ function Login() {
                                 loginOp(username, posting) 
                             }}>Login</button>
                         </div>
-                        {/*<div className="input-group mb-3" id="keychain-login" style={{display: 'none'}}>
+                        <div className="input-group mb-3" id="keychain-login" style={{display: 'none'}}>
                             <button type="button" className="btn btn-primary" id="login-key" onClick={() => {
                                 const username = document.getElementById('username').value
                                 keychainLoginOp(username) 
                             }}>Keychain Login</button>
-                        </div>*/}
+                        </div>
                     </div>
                 </div>
             </div>

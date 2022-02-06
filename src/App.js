@@ -2,12 +2,11 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import logo from './logo.svg';
 import './App.css';
 import Home from "./components/home"
 import Login from "./components/login"
 import Post from "./components/post"
-import ops from "./services/hiveOps"
+import New from "./components/new"
 
 
 const NavLinks = function() {
@@ -17,10 +16,10 @@ const NavLinks = function() {
     const id = localStorage.getItem('id');
     return (<>
               <li className="nav-item">
-                <a className="nav-link text-white" aria-current="page" href={`/u?user=${username}`}>@{username}</a>
+                <a className="nav-link text-white" aria-current="page" href={"/u?user=" + username}>@{username}</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-white" aria-current="page" href={`/new?user=${username}`}>Ask a Question</a>
+                <a className="nav-link text-white" aria-current="page" href={"/new?user=" + username}>Ask a Question</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link text-white" aria-current="page" href="#" onClick={logout}>Logout</a>
@@ -75,6 +74,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/post" element={<Post />} />
+              <Route path="/new" element={<New />} />
             </Routes>
         </div>
       </div>
