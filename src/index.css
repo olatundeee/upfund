@@ -1,8 +1,13 @@
 body {
   margin: 0;
-  font-family: 'Nunito Sans',sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 0.9rem;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 20px;;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%
 }
 
 code {
@@ -11,7 +16,11 @@ code {
 }
 
 .post {
-  margin-top: 3%;
+  padding: 1%;
+}
+
+#post-page-content {
+  width: 100%
 }
 
 .post-title-section {
@@ -20,10 +29,9 @@ code {
 }
 
 .post-title {
-  color: #212631;
-  margin: 0 0 15px;
-  font-weight: 700;
-  font-size: 20px;
+  /*color: #212631;
+  margin: 0 0 15px;*/
+  font-weight: 400;
   text-decoration: none !important;
 }
 
@@ -48,7 +56,7 @@ code {
 }
 
 .trending-posts {
-  padding: 0 10%;
+  padding: 0 5%;
 }
 
 #login-content {
@@ -63,13 +71,32 @@ code {
   padding: 0 10%;
 }
 
+.comment-card {
+  margin: 0 3%;
+}
+
+#post-body-text {
+  padding: 10% 0;
+}
+
+#comment-body-text {
+  padding: 1% 0;
+}
+
 .post-footer-area {
-  background-color: #bfbf14;
-  margin: 5% 0 0;
+  margin: 0;
+}
+
+.comments-footer-area {
+  margin: 0;
 }
 
 img {
   width: 100% !important;
+}
+
+.comment-action {
+  padding: 1% 10%;
 }
 
 .text-cont {
@@ -92,4 +119,25 @@ img {
 
 .editorAlignment {
   text-align: left;
+}
+
+#avatar {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar_el_mobile {
+    display: none;
+  }
+
+  /*#profile-follow {
+    position: 'absolute';
+    top: '50%' !important;
+    left: '70%' !important;
+  }*/
+
+  .follow-badge {
+    padding: 30% !important;
+  }
 }
